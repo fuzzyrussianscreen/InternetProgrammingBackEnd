@@ -9,6 +9,7 @@
 
 namespace InternetProgramming.Models
 {
+    using Microsoft.AspNet.Identity.EntityFramework;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
@@ -22,6 +23,7 @@ namespace InternetProgramming.Models
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            
             throw new UnintentionalCodeFirstException();
         }
     

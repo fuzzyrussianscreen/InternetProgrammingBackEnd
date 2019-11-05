@@ -13,7 +13,7 @@ using System.Web.Http.Cors;
 
 namespace InternetProgramming.Controllers
 {
-    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
+    [EnableCors(origins: "https://localhost:4200", headers: "*", methods: "*")]
     public class MaterialsController : ApiController
     {
         private WebAPIDBEntities db = new WebAPIDBEntities();
