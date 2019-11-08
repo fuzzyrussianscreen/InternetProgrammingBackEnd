@@ -12,6 +12,7 @@ using System.Web.Http.Cors;
 
 namespace InternetProgramming.Controllers
 {
+    [EnableCors(origins: "https://localhost:4200", headers: "*", methods: "*")]
     public class AccountController : ApiController
     {
         [Route("api/User/Register")]
@@ -27,6 +28,7 @@ namespace InternetProgramming.Controllers
                 RequiredLength = 3
             };
             IdentityResult result = manager.Create(user, model.Password);
+            manager.AddToRoles(user.Id, model.Roles);
             return result;
         }
 
@@ -44,5 +46,22 @@ namespace InternetProgramming.Controllers
             };
             return model;
         }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        [Route("api/ForAdminRole")]
+        public string ForAdminRole()
+        {
+            return "for admin role";
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Reader")]
+        [Route("api/ForReaderRole")]
+        public string ForReaderRole()
+        {
+            return "For reader role";
+        }
+            
     }
 }
