@@ -10,6 +10,8 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using InternetProgramming.Models;
 using System.Web.Http.Cors;
+using System.Data.SqlClient;
+using System.Dynamic;
 
 namespace InternetProgramming.Controllers
 {
@@ -17,6 +19,7 @@ namespace InternetProgramming.Controllers
     public class MaterialsController : ApiController
     {
         private WebAPIDBEntities db = new WebAPIDBEntities();
+
 
         // GET: api/Materials
         public IQueryable<Material> GetMaterials()
@@ -36,6 +39,7 @@ namespace InternetProgramming.Controllers
 
             return Ok(material);
         }
+        
 
         // PUT: api/Materials/5
         [ResponseType(typeof(void))]
