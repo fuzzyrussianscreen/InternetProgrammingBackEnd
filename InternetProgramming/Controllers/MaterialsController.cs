@@ -39,7 +39,47 @@ namespace InternetProgramming.Controllers
 
             return Ok(material);
         }
-        
+
+        // GET: api/SearchMaterials
+        [HttpPost]
+        [Route("api/SearchMaterials")]
+        [EnableCors(origins: "https://localhost:4200", headers: "*", methods: "*")]
+        public IEnumerable<Material> SearchMaterials(string text)
+        {
+            string sqlExpression = "Search";
+
+            using (SqlConnection connection = new SqlConnection(db.Database.Connection.ConnectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand(sqlExpression, connection);
+                command.Parameters.Add("@text", SqlDbType.VarChar);
+                command.Parameters["@text"].Value = text;
+                // указываем, что команда представляет хранимую процедуру
+                command.CommandType = CommandType.StoredProcedure;
+                var reader = command.ExecuteReader();
+                List<Material> materials = new List<Material>();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        int id = reader.GetInt32(0);
+                        string name = reader.GetString(1);
+                        Decimal price = reader.GetDecimal(2);
+                        string description = reader.GetString(3);
+                        materials.Add(new Material()
+                        {
+                            Id = id,
+                            Name = name,
+                            Price = price,
+                            Description = description
+                        });
+                    }
+                }
+                reader.Close();
+                return materials;
+            }
+
+        }
 
         // PUT: api/Materials/5
         [ResponseType(typeof(void))]

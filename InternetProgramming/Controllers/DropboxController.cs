@@ -7,13 +7,16 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace InternetProgramming.Controllers
 {
+    [EnableCors(origins: "https://localhost:4200", headers: "*", methods: "*")]
     public class DownloadController : ApiController
     {
         [HttpGet]
         [Route("api/DownloadFile")]
+        [EnableCors(origins: "https://localhost:4200", headers: "*", methods: "*")]
         public HttpResponseMessage DownloadFile(string fileName)
         {
             try
@@ -43,15 +46,18 @@ namespace InternetProgramming.Controllers
 
         [System.Web.Http.HttpGet]
         [System.Web.Http.Route("api/Download/GetFiles")]
+        [EnableCors(origins: "https://localhost:4200", headers: "*", methods: "*")]
         public IEnumerable<string> GetFiles()
         {
-            return new System.IO.DirectoryInfo("C:/Users/sanek/webApi/webApi/App_Data").GetFiles().Select(x => x.Name);
+            return new System.IO.DirectoryInfo("D:/ФИСТ ИСЭбд/Интернет программирование/").GetFiles().Select(x => x.Name);
         }
     }
+    [EnableCors(origins: "https://localhost:4200", headers: "*", methods: "*")]
     public class UploadController : ApiController
     {
         [HttpPost]
         [Route("api/Upload")]
+        [EnableCors(origins: "https://localhost:4200", headers: "*", methods: "*")]
         public IHttpActionResult UploadFiles()
         {
             int i = 0;
